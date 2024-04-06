@@ -161,7 +161,7 @@ require_once __DIR__ . '/../dbConnection/dbConnection.php';
 
 
       <li class="log_out">
-        <a href="authentication/logout.php">
+        <a href="../authentication/logout.php">
           <i class='bx bx-log-out'></i>
           <span class="links_name">Log out</span>
         </a>
