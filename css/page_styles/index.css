@@ -1,0 +1,87 @@
+body {
+  color: #fff;
+  background-image: url(../../images/header1.jpg);
+  background-size: cover;
+  background-position: center;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+  z-index: 990;
+  position: relative;
+  height: 100%;
+  min-height: 600px;
+  text-align: center;
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-image: -webkit-radial-gradient(
+    48% 42%,
+    140% 110%,
+    rgba(33, 37, 41, 0.5),
+    rgba(33, 37, 41, 0.6),
+    rgba(33, 37, 41, 0.7),
+    rgba(33, 37, 41, 0.8),
+    rgba(33, 37, 41, 0.93),
+    #212529 55%,
+    #212529 200%
+  );
+  background-image: radial-gradient(
+    140% 110% at 48% 42%,
+    rgba(33, 37, 41, 0.5),
+    rgba(33, 37, 41, 0.6),
+    rgba(33, 37, 41, 0.7),
+    rgba(33, 37, 41, 0.8),
+    rgba(33, 37, 41, 0.93),
+    #212529 55%,
+    #212529 200%
+  );
+}
+
+.form_bg {
+  /* background-image: url("images/blog-2.jpg");*/
+  background-color: #eee;
+  color: #666;
+  padding: 20px;
+  border-radius: 10px;
+  position: absolute;
+  border: 1px solid #fff;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 320px;
+  height: 280px;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.form_bg {
+  background-image: url(img/3.jpg);
+  /* background-color: #eee; */
+  color: #666;
+  padding: 20px;
+  border-radius: 10px;
+  position: absolute;
+  border: 1px solid #fff;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 320px;
+  height: 280px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
