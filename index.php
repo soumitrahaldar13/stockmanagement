@@ -81,7 +81,7 @@
     <div class="row">
         <div class="form_bg">
             <form action="page/admin_login_action.php" name="myForm" method="post" class="w3_form_post" onsubmit="return validateForm()" enctype="multipart/form-data">
-                 <h2 class="text-center">admin page</h2>
+                 <h2 class="text-center">Admin Page</h2>
                 <br/>
                 <div class="form-group">
                     <input type="name" class="form-control" id="name" name="name" placeholder="name">
