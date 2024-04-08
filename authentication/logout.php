@@ -4,8 +4,7 @@
 session_start();
 
 // Delete certain session
-unset($_SESSION['username']);
-unset($_SESSION['error_msg']);
+session_destroy();
 // 	header("Location: ../index.php");
 // 	die;
 // Delete all session variables
