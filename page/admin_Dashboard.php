@@ -36,11 +36,16 @@ include('admin_sidenav.php');
     <div class="overview-boxes">
       <div class="box">
         <div class="right-side">
-          <div class="box-topic">Total Order</div>
-          <div class="number">40,876</div>
+          <div class="box-topic">Total CPU</div>
+          <?php
+            $CPU_count = mysqli_query($con, "SELECT * FROM `cpu` WHERE `Delevary_Date`='NAN'&`ewaste`='0'") or die('Error');
+            $count = mysqli_num_rows($CPU_count);
+
+          ?>
+          <div class="number"><?php echo $count; ?></div>
           <div class="indicator">
             <i class='bx bx-up-arrow-alt'></i>
-            <span class="text">Up from yesterday</span>
+            <span class="text">1 under AMC </span>
           </div>
         </div>
         <i class='bx bx-cart-alt cart'></i>
@@ -117,9 +122,13 @@ include('admin_sidenav.php');
                 // echo 1;die;
 
                 while ($row = mysqli_fetch_array($query)) {
+                    $USED_ip=$row['IP'];
+                    // ip used * marking..
+                  $result = mysqli_query($con, "SELECT * FROM `product_add`WHERE `IP`='$USED_ip'");
 
+                  $count = mysqli_num_rows($result);
                 ?>
-                  <option value="<?php echo $row['IP'] ?>"><?php echo $row['IP']  ?></option>';
+                  <option value="<?php echo $row['IP'] ?>"><?php echo $row['IP'];if ($count>0){?>*<?php }else{}   ?></option>';
                 <?php
                 }
                 ?>

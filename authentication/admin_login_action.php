@@ -7,7 +7,7 @@ if (isset($_POST['submit'])) {
 	$pwd = $_POST['pwd'];
 
 	// todo: hashing of password to be done on signup of user
-	// $hashed_password = password_hash($pwd, PASSWORD_BCRYPT);
+	//echo $hashed_password = password_hash($pwd, PASSWORD_BCRYPT);
 	$result = mysqli_query($con, "select * from login where `NAME`='$name'") or die('Error');
 
 	$count = mysqli_num_rows($result);
