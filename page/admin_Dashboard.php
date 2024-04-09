@@ -41,11 +41,11 @@ include('admin_sidenav.php');
         <div class="right-side">
           <div class="box-topic">Total CPU</div>
           <?php
-            $CPU_count = mysqli_query($con, "SELECT * FROM `cpu` WHERE `Delevary_Date`='NAN'&`ewaste`='0'") or die('Error');
-            $count = mysqli_num_rows($CPU_count);
+          // $CPU_count = mysqli_query($con, "SELECT * FROM `cpu` WHERE `Delevary_Date`='NAN'&`ewaste`='0'") or die('Error');
+          // $count = mysqli_num_rows($CPU_count);
 
           ?>
-          <div class="number"><?php echo $count; ?></div>
+          <!-- <div class="number"><?php echo $count; ?></div> -->
           <div class="indicator">
             <i class='bx bx-up-arrow-alt'></i>
             <span class="text">1 under AMC </span>
@@ -97,19 +97,19 @@ include('admin_sidenav.php');
             <label for="validationDefault01" class="form-label">ADD USER</label>
             <!--  <input type="text" id="SELECT_USER" name="SELECT_USER" class="form-control"onkeyup="GetDetail(this.value)"/> -->
             <!-- <input list="USER" id="SELECT_USER" name="SELECT_USER" class="form-control" required="required"  value=""/> -->
-            <select id="USER" name="USER" class="form-control">
+            <!-- <select id="USER" name="USER" class="form-control">
               <option value="">Select </option>
               <?php
-              $query = mysqli_query($con, " SELECT * FROM `user` ORDER BY `id` DESC") or die(mysqli_error($con));
-              // echo 1;die;
+              // $query = mysqli_query($con, " SELECT * FROM `user` ORDER BY `id` DESC") or die(mysqli_error($con));
+              // // echo 1;die;
 
-              while ($row = mysqli_fetch_array($query)) {
+              // while ($row = mysqli_fetch_array($query)) {
               ?>
-                <option value="<?php echo $row['MOBILE_NO'] ?>"><?php echo $row['NAME']  ?></option>';
-              <?php
-              }
-              ?>
-            </select>
+              <option value="<?php echo $row['MOBILE_NO'] ?>"><?php echo $row['NAME']  ?></option>';
+            <?php
+            // }
+            ?>
+            </select> -->
           </div>
           <div class="col-md-3">
             <div class="row">
@@ -125,13 +125,15 @@ include('admin_sidenav.php');
                 // echo 1;die;
 
                 while ($row = mysqli_fetch_array($query)) {
-                    $USED_ip=$row['IP'];
-                    // ip used * marking..
+                  $USED_ip = $row['IP'];
+                  // ip used * marking..
                   $result = mysqli_query($con, "SELECT * FROM `product_add`WHERE `IP`='$USED_ip'");
 
                   $count = mysqli_num_rows($result);
                 ?>
-                  <option value="<?php echo $row['IP'] ?>"><?php echo $row['IP'];if ($count>0){?>*<?php }else{}   ?></option>';
+                  <option value="<?php echo $row['IP'] ?>"><?php echo $row['IP'];
+                                                            if ($count > 0) { ?>*<?php } else {
+                                                                                }   ?></option>';
                 <?php
                 }
                 ?>
@@ -141,7 +143,7 @@ include('admin_sidenav.php');
 
 
 
-          
+
           <div class="col-md-6">
             <!--   <label for="validationDefault01" class="form-label"></label> -->
             <div class="col-md-6">
@@ -191,50 +193,13 @@ include('admin_sidenav.php');
 
       <!-- start USER USED PRODUCT's div -->
       <div class="top-sales box" id="user_data">
-        <div class="title">USER USED PRODUCT's:</div>
-        <!-- <div class="col-md-6">
-                <div class="col-md-4">
-                              <label for="validationDefault01" class="form-label">USER IP</label>
-                               <input type="text" id="USER_IP" name="USER_IP" class="form-control" required="required" onkeyup="myFunction()"  value=""/> 
-                              
-                    </div>
-                <div class="col-md-4">
-                              <label for="validationDefault01" class="form-label">USER</label>
-                              
-                               <input type="text" id="USER" name="USER" class="form-control" placeholder="ABCD123A" required>
-                              
-                    </div>
-                     <div class="col-md-4">
-                              <label for="validationDefault01" class="form-label">USER MOBILE NO.</label>
-                               <input type="text" id="USER_mob" name="USER_mob" class="form-control" required="required"  value=""/> 
-                              
-                    </div>
-            </div>
-            <div class="col-md-6">
-                  <div class="row">
-                     <div class="col-md-6">
-                              <label for="validationDefault01" class="form-label">PRODUCT NAME</label>
-                               <input type="text" id="SELECT_USER" name="SELECT_USER" class="form-control" required="required"  value=""/> 
-                              
-                    </div> 
-                    <div class="col-md-6">
-                              <label for="validationDefault01" class="form-label">Serial Number</label>
-                               <input type="text" id="SELECT_USER" name="SELECT_USER" class="form-control" required="required"  value=""/> 
-                              
-                    </div> 
-                  </div>
-                  <div class="row">
-                     <div class="col-md-6">
-                              <label for="validationDefault01" class="form-label">PRODUCT NAME</label>
-                               <input type="text" id="SELECT_USER" name="SELECT_USER" class="form-control" required="required"  value=""/> 
-                              
-                    </div> 
-                    <div class="col-md-6">
-                              <label for="validationDefault01" class="form-label">Serial Number</label>
-                               <input type="text" id="SELECT_USER" name="SELECT_USER" class="form-control" required="required"  value=""/> 
-                              
-                    </div> 
-                  </div> -->
+        <div class="title">Products in use</div>
+        <div class="custom-container">
+          <label for="emp-code">Search by Emp code:</label>
+          <input type='text' id="emp-code" name="emp-code" placeholder="Enter employee code" class="search-input" />
+        </div>
+        <!-- Render the list of product  -->
+        <div class='result-container' id="product-list"></div>
       </div>
 
 
@@ -366,6 +331,21 @@ function myFunction() {
       });
 
     });
+
+    // onBlur handler for empCode 
+    $('#emp-code').blur(function() {
+      const empCode = $('#emp-code').val();
+      $.ajax({
+        type: 'POST',
+        url: 'ajax-controller/ajax_get_product_details.php',
+        data: {
+          empCode: empCode
+        },
+        success: function(data) {
+          $('#product-list').html(data);
+        }
+      })
+    })
   });
 </script>
 <!-- end search table -->
