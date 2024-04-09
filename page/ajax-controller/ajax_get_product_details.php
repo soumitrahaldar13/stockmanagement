@@ -37,7 +37,7 @@ if (!empty($_POST["empCode"])) {
         <table class='table-width'>
             <thead class='table-header cell-style'>
                 <tr>
-                    <th>IP</th>
+                    <th>IP Address</th>
                     <th>Name</th>
                     <th>Serial Number</th>
                 </tr>
