@@ -97,19 +97,19 @@ include('admin_sidenav.php');
             <label for="validationDefault01" class="form-label">ADD USER</label>
             <!--  <input type="text" id="SELECT_USER" name="SELECT_USER" class="form-control"onkeyup="GetDetail(this.value)"/> -->
             <!-- <input list="USER" id="SELECT_USER" name="SELECT_USER" class="form-control" required="required"  value=""/> -->
-            <!-- <select id="USER" name="USER" class="form-control">
+            <select id="USER" name="USER" class="form-control">
               <option value="">Select </option>
               <?php
-              // $query = mysqli_query($con, " SELECT * FROM `user` ORDER BY `id` DESC") or die(mysqli_error($con));
-              // // echo 1;die;
+              $query = mysqli_query($con, " SELECT * FROM `user` ORDER BY `id` DESC") or die(mysqli_error($con));
+              // echo 1;die;
 
-              // while ($row = mysqli_fetch_array($query)) {
+              while ($row = mysqli_fetch_array($query)) {
               ?>
-              <option value="<?php echo $row['MOBILE_NO'] ?>"><?php echo $row['NAME']  ?></option>';
-            <?php
-            // }
-            ?>
-            </select> -->
+                <!-- <option value="<?php echo $row['MOBILE_NO'] ?>"><?php echo $row['NAME']  ?></option>'; -->
+              <?php
+              }
+              ?>
+            </select>
           </div>
           <div class="col-md-3">
             <div class="row">
