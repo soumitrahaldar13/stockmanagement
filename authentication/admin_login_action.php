@@ -19,7 +19,9 @@ if (isset($_POST['submit'])) {
 		$_SESSION['error_msg'] = "incorrect username or password";
 		header("Location: ../index.php");
 	} else {
-		header('Location: ../page/admin_Dashboard.php');
 		$_SESSION['is_user_logged_in'] = true;
+		$_SESSION['name'] = $array['NAME'];
+
+		header('Location: ../page/admin_Dashboard.php');
 	}
 }

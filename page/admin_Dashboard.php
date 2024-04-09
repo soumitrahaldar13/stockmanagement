@@ -1,10 +1,12 @@
 <?php
 session_start();
 require_once __DIR__ . '/../dbConnection/dbConnection.php';
+require_once __DIR__ . '/../helpers/session_helper.php';
+if (!check_if_user_logged_in()) {
+  header('Location: ../index.php');
+}
+
 include('admin_sidenav.php');
-
-
-
 ?>
 <!-- <link rel="stylesheet" href="../css/style_add.css"> -->
 
@@ -23,6 +25,7 @@ include('admin_sidenav.php');
 <section class="home-section">
   <nav>
     <div class="sidebar-button">
+
       <i class='bx bx-menu sidebarBtn'></i>
       <span class="dashboard">Dashboard</span>
     </div>
