@@ -1,6 +1,6 @@
 
 <?php
-require_once("dbconnection.php");
+require_once __DIR__ . '/../dbConnection/dbConnection.php';
 //echo '1';
 if(!empty($_POST["user"])) 
 {
