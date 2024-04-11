@@ -90,101 +90,25 @@ include('admin_sidenav.php');
 
     <div class="sales-boxes">
       <div class="recent-sales box">
-
-        <div class="title">USER ADD PRODUCT's..</div>
+        <div class="title">User Add Product</div>
         <form action="Product_assignment.php" name="myForm" method="post" class="w3_form_post" onsubmit="return validateForm()" enctype="multipart/form-data">
-          <div class="col-md-3">
-            <label for="validationDefault01" class="form-label">ADD USER</label>
-            <!--  <input type="text" id="SELECT_USER" name="SELECT_USER" class="form-control"onkeyup="GetDetail(this.value)"/> -->
-            <!-- <input list="USER" id="SELECT_USER" name="SELECT_USER" class="form-control" required="required"  value=""/> -->
-            <select id="USER" name="USER" class="form-control">
-              <option value="">Select </option>
-              <?php
-              $query = mysqli_query($con, " SELECT * FROM `user` ORDER BY `id` DESC") or die(mysqli_error($con));
-              // echo 1;die;
+          <div class='row'>
+            <!-- Search by empId -->
+            <div class="custom-container">
+              <label for="emp-code">Search by Emp code:</label>
+              <input type='text' id="emp-code-input" name="emp-code-input" placeholder="Enter employee code" class="search-input" />
+            </div>
+            <!-- DISPLAY IP LIST DROPDOWN -->
+            <div class='mt-10' id="ip-list"></div>
 
-              while ($row = mysqli_fetch_array($query)) {
-              ?>
-                <!-- <option value="<?php echo $row['MOBILE_NO'] ?>"><?php echo $row['NAME']  ?></option>'; -->
-              <?php
-              }
-              ?>
-            </select>
+            <!-- Display Available Products -->
+            <?php include_once __DIR__ . '/../page/ajax-controller/get_product_list.php' ?>
           </div>
-          <div class="col-md-3">
-            <div class="row">
-              <label for="myBrowser" class="form-label">ADD IP:</label>
-            </div>
-            <div class="row">
-              <!--  <input list="IP" id="SELECT_IP" name="SELECT_IP" class="form-control" required="required" value=""/>
-                               <datalist id="IP" > -->
-              <select id="SELECT_IP" name="SELECT_IP" class="form-control">
-                <option value="">Select </option>
-                <?php
-                $query = mysqli_query($con, " SELECT * FROM `ip` ORDER BY `id` DESC") or die(mysqli_error($con));
-                // echo 1;die;
-
-                while ($row = mysqli_fetch_array($query)) {
-                  $USED_ip = $row['IP'];
-                  // ip used * marking..
-                  $result = mysqli_query($con, "SELECT * FROM `product_add`WHERE `IP`='$USED_ip'");
-
-                  $count = mysqli_num_rows($result);
-                ?>
-                  <option value="<?php echo $row['IP'] ?>"><?php echo $row['IP'];
-                                                            if ($count > 0) { ?>*<?php } else {
-                                                                                }   ?></option>';
-                <?php
-                }
-                ?>
-              </select>
-            </div>
-          </div>
-
-
-
-
-          <div class="col-md-6">
-            <!--   <label for="validationDefault01" class="form-label"></label> -->
-            <div class="col-md-6">
-
-              <label for="validationDefault01" class="form-label">ADD Product</label>
-              <!--   <select name="cars" id="mySelect" onchange="myFunction()"> -->
-              <select class="form-control" name="product" id="product" onChange="getptoduct(this.value);">
-                <option value="">select</option>
-
-
-                <?php
-                $query = mysqli_query($con, " SELECT * FROM `product` ORDER BY `ID` DESC") or die(mysqli_error($con));
-                // echo 1;die;
-                while ($row = mysqli_fetch_array($query)) {
-                ?>
-                  <option value="<?php echo $row['NAME'] ?>"><?php echo $row['NAME']  ?></option>';
-                <?php
-                }
-                ?>
-              </select>
-            </div>
-            <div class="col-md-6">
-
-              <label for="validationDefault01" class="form-label">Serial Number</label>
-              <!--   <select name="cars" id="mySelect" onchange="myFunction()"> -->
-              <select name="Serial_Number" class="form-control" id="Serial_Number">
-                <option value="">select</option>
-
-
-
-              </select>
-
-
-            </div>
-
-          </div>
-          <BR>
-          <div class="button" style="MARGIN-TOP: 10%;">
+          <br />
+          <div class="button" style="margin-top: 10%;">
             <input type="submit" class="btn btn-danger" value="SUBMIT" name="submit_prodict">
           </div>
-          </BR>
+          </br>
         </form>
 
 
@@ -332,7 +256,7 @@ function myFunction() {
 
     });
 
-    // onBlur handler for empCode 
+    // Get products list by emp code
     $('#emp-code').blur(function() {
       const empCode = $('#emp-code').val();
       $.ajax({
@@ -345,7 +269,22 @@ function myFunction() {
           $('#product-list').html(data);
         }
       })
-    })
+    });
+
+    // Get all IPs by emp code
+    $('#emp-code-input').blur(function() {
+      const empCode = $('#emp-code-input').val();
+      $.ajax({
+        type: 'POST',
+        url: 'ajax-controller/ajax_get_ip_list.php',
+        data: {
+          empCode: empCode
+        },
+        success: function(data) {
+          $('#ip-list').html(data);
+        }
+      })
+    });
   });
 </script>
 <!-- end search table -->

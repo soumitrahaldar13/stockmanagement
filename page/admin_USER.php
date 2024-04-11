@@ -232,7 +232,7 @@ date_default_timezone_set("Asia/Calcutta");
                   <td><?php echo $row['CELL'] ?></td>
                   <td><?php echo $row['FLOOR_NO'] ?></td>
                   <td><?php echo $row['MOBILE_NO'] ?></td>
-                  <td><?php echo $row['emp_code'] ?></td>
+                  <td><?php echo $row['emp_id'] ?></td>
 
                   <td><button class="btn btn-warning" data-toggle="modal" type="button" data-target="#update_modal<?php echo $row['id'] ?>"><span class="glyphicon glyphicon-edit"></span> Edit</button></td>
 

@@ -496,3 +496,7 @@ nav .profile-details i {
   box-sizing: border-box;
   text-align: center;
 }
+
+.mt-10 {
+  margin-top: 10px;
+}
