@@ -3,54 +3,7 @@ session_start();
 require_once __DIR__ . '/../dbConnection/dbConnection.php';
 include('admin_sidenav.php');
 
-if (isset($_POST['submit1']) != "") {
-    // echo 1;die;
-    $GEM_NO = $_POST['GEM_NO'];
-    $GEM_Date = $_POST['GEM_Date'];
-    $VENDOR_NAME = $_POST['VENDOR_NAME'];
-    $BRAND_NAME = $_POST['BRAND_NAME'];
-    $Serial_Number = $_POST['Serial_Number'];
-    $Model_No = $_POST['Model_No'];
-    //$Delevary_Date=$_POST['Delevary_Date'];
-    //$Defunct=$_POST['Defunct'];
-    $text = acos(2);
 
-
-    $Problem = $_POST['Problem'];
-    if ($Problem > 0) {
-        $Problem1 = $Problem;
-    } else {
-
-        $Problem1 = $text;
-    }
-
-    $START_DATE = $_POST['START_DATE'];
-    $END_DATE = $_POST['END_DATE'];
-
-    if ($START_DATE > 0) {
-        $START_DATE1 = $START_DATE;
-        $END_DATE1 = $END_DATE;
-    } else {
-
-        $START_DATE1 =  $text;
-        $END_DATE1 = $text;
-    }
-
-
-
-
-    //echo $Delevary_Date1;die;
-    //echo "INSERT INTO `ups`(`id`, `GEM_NO`, `GEM_Date`, `VENDOR_NAME`, `BRAND_NAME`, `Serial_Number`, `Model_No`, `Delevary_Date`, `Problem`, `START_DATE`, `END_DATE`,`Defunct`, `AMC`,`ewaste`) VALUES ('','$GEM_NO','$GEM_Date','$VENDOR_NAME','$BRAND_NAME','$Serial_Number','$Model_No','$text','$Problem1','$START_DATE1','$END_DATE1','0', '0','0')";die;
-
-    $query = $con->query("INSERT INTO `ups`(`id`, `GEM_NO`, `GEM_Date`, `VENDOR_NAME`, `BRAND_NAME`, `Serial_Number`, `Model_No`, `Delevary_Date`, `Problem`, `START_DATE`, `END_DATE`,`Defunct`, `AMC`,`ewaste`) VALUES ('','$GEM_NO','$GEM_Date','$VENDOR_NAME','$BRAND_NAME','$Serial_Number','$Model_No','$text','$Problem1','$START_DATE1','$END_DATE1','0', '0','0')");
-    if ($query) {
-        echo "<script>alert('update ups Sucessfully');window.location.href='admin_UPS.php'; </script>";
-        // header("location:admin_image.php");
-
-    } else {
-        die(mysqli_error($conn));
-    }
-}
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -130,8 +83,7 @@ if (isset($_POST['submit1']) != "") {
             }
         });
     });
-</script>
-<script type="text/javascript">
+
     $(function() {
         $("input[name='chkPassPort1']").click(function() {
             if ($("#chkYes1").is(":checked")) {
@@ -146,6 +98,22 @@ if (isset($_POST['submit1']) != "") {
             }
         });
     });
+
+
+    $(document).ready(function() {
+        $('#wb_Form1').submit(function(event) {
+            event.preventDefault();
+            const formData = $('#wb_Form1').serialize();
+            $.ajax({
+                type: "POST",
+                url: "ajax-controller/ajax_insert_ups_details.php",
+                data: formData,
+                success: function(data) {
+                    $('#response').html(data);
+                }
+            })
+        })
+    })
 </script>
 
 <meta charset="utf-8">
@@ -302,6 +270,7 @@ date_default_timezone_set("Asia/Calcutta");
                 <!-- </table> -->
 
                 <!--    </div> -->
+                <div id="response"></div>
             </div>
         </div>
 
