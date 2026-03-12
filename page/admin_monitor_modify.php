@@ -1,6 +1,7 @@
 
 
-<div class="modal fade" id="update_modal<?php echo $row['id']?>" aria-hidden="true">
+<!-- <div class="modal fade" id="update_modal<?php echo $row['id']?>" aria-hidden="true"> -->
+  <div class="modal fade" id="update_modal<?php echo $row['id']?>" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <form method="POST" action="admin_monitor_update_query.php">
@@ -11,9 +12,9 @@
           <div class="col-md-2"></div>
           <div class="col-md-8">
             <div class="form-group">
-              <label>GEM NO:</label>
+              <label > GEM NO: </label>
               <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
-             <input type="text" name="GEM_NO" value="<?php echo $row['GEM_NO']?>" class="form-control" required="required"/>
+             <input type="text" name="GEM_NO" value="<?php echo $row['GEM_NO']?>" class="form-control" minlength="5" maxlength="20" required="required"/>
             </div>
             <div class="form-group">
               <label>GEM Date:</label>
@@ -67,13 +68,13 @@
             <div class="form-group">
               <label>Warranty START DATE:</label>
               <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
-              <input type="date" name="START_DATE" value="<?php echo $row['START_DATE'] ?>" class="form-control" />
+              <input type="date" name="START_DATE" value="<?php echo $row['START_DATE']?>" class="form-control"/>
             </div>
             <div class="form-group">
               <label>Warranty END DATE:</label>
               <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
-              <input type="date" name="END_DATE" value="<?php echo $row['END_DATE'] ?>" class="form-control"  />
-            </div>
+              <input type="date" name="END_DATE" value="<?php echo $row['END_DATE'] ?>" class="form-control"/>
+            </div> 
           </div>
         </div>
         <div style="clear:both;"></div>

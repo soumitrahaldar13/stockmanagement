@@ -15,7 +15,7 @@
             <div class="form-group">
               <label>VENDOR NAME:</label>
               <input type="hidden" name="id" value="<?php echo $row['ID']?>"/>
-             <input type="text" name="name" value="<?php echo $row['NAME']?>" class="form-control" required="required"/>
+             <input type="text" name="name" value="<?php echo $row['NAME']?>" class="form-control" required="required" pattern="[A-Za-z ]{1,32}"/>
             </div>
             <div class="form-group">
               <label>VENDOR Address:</label>
@@ -25,7 +25,7 @@
             <div class="form-group">
               <label>Mobile No.:</label>
               <input type="hidden" name="id" value="<?php echo $row['ID']?>"/>
-             <input type="text" name="mobile" value="<?php echo $row['mobile']?>" class="form-control" required="required"/>
+             <input type="text" name="mobile" value="<?php echo $row['mobile']?>" class="form-control" minlength="4" maxlength="10" pattern="[6789][0-9]{9}"  required="required"/>
             </div>
             
           </div>

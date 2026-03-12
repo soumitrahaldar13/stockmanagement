@@ -10,13 +10,14 @@ if (isset($_POST['submit1']) != "") {
   $CELL = $_POST['CELL'];
   $FLOOR_NO = $_POST['FLOOR_NO'];
   $Mobile_No = $_POST['Mobile_No'];
+  $EMP_CODE = $_POST['EMP_CODE'];
 
-  //echo "INSERT INTO `user`(`id`, `NAME`, `DESIGNATION`, `CELL`, `FLOOR_NO`, `MOBILE_NO`) VALUES ('','$name',' $DESIGNATION','$CELL','$FLOOR_NO','$Mobile_No')";die;
+ // echo "INSERT INTO `user`(`id`, `NAME`, `DESIGNATION`, `CELL`, `FLOOR_NO`, `MOBILE_NO`, `emp_id`, `active`, `ip_id`) VALUES  ('','$name',' $DESIGNATION','$CELL','$FLOOR_NO','$Mobile_No','$EMP_CODE','0','0')";die;
 
 
-  $query = $con->query("INSERT INTO `user`(`id`, `NAME`, `DESIGNATION`, `CELL`, `FLOOR_NO`, `MOBILE_NO`) VALUES ('','$name',' $DESIGNATION','$CELL','$FLOOR_NO','$Mobile_No')");
+  $query = $con->query("INSERT INTO `user`(`id`, `NAME`, `DESIGNATION`, `CELL`, `FLOOR_NO`, `MOBILE_NO`, `emp_id`, `active`, `ip_id`) VALUES  ('','$name',' $DESIGNATION','$CELL','$FLOOR_NO','$Mobile_No','$EMP_CODE','0','0')");
   if ($query) {
-    echo "<script>alert('update  USER Sucessfully');window.location.href='admin_USER.php'; </script>";
+    echo "<script>alert('update USER Sucessfully');window.location.href='admin_USER.php'; </script>";
     // header("location:admin_image.php");
 
   } else {
@@ -130,17 +131,38 @@ date_default_timezone_set("Asia/Calcutta");
         <form enctype="multipart/form-data" action="" id="wb_Form1" name="form" method="post">
           <!-- <table cellpadding="0" cellspacing="0" border="0"> -->
           <div class="row ">
-            <div class="col-md-3">
+            <div class="col-md-2">
               <label for="validationDefault01" class="form-label">Name:</label>
-              <input type="text" class="form-control" name="name" id="name" required="required" placeholder=" Name">
+              <input type="text" class="form-control" name="name" id="name" required="required" pattern="[A-Za-z ]{1,32}" placeholder=" Name" onchange="upperCase()">
             </div>
             <div class="col-md-2">
               <label for="validationDefault02" class="form-label">DESIGNATION:</label>
-              <input type="text" class="form-control" id="DESIGNATION" name="DESIGNATION" required="required" placeholder="DESIGNATION">
+             <!--  <input type="text" class="form-control" id="DESIGNATION" name="DESIGNATION" required="required" pattern="[A-Za-z ]{1,32}" placeholder="DESIGNATION"> -->
+               <select name="DESIGNATION" id="DESIGNATION" class="form-control" required="required">
+                                <option value="">Choose</option>
+                                <?php
+                                $ret = mysqli_query($con, "SELECT `DESIGNATION` FROM user GROUP BY `DESIGNATION`");
+
+                                while ($row = mysqli_fetch_array($ret)) { ?>
+                                    <option value="<?php echo $row['DESIGNATION']; ?>"><?php echo $row['DESIGNATION']; ?></option>
+                                <?php } ?>
+
+                            </select>
             </div>
             <div class="col-md-2">
               <label for="validationDefault01" class="form-label">CELL:</label>
-              <input type="text" class="form-control" name="CELL" id="CELL" required="required" placeholder="CELL">
+                    <!-- SELECT `CELL` FROM user GROUP BY `CELL`   -->      
+              
+              <select name="CELL" id="CELL" class="form-control" required="required">
+                                <option value="">Choose</option>
+                                <?php
+                                $ret = mysqli_query($con, "SELECT `CELL` FROM user GROUP BY `CELL`");
+
+                                while ($row = mysqli_fetch_array($ret)) { ?>
+                                    <option value="<?php echo $row['CELL']; ?>"><?php echo $row['CELL']; ?></option>
+                                <?php } ?>
+
+                            </select>
             </div>
 
 
@@ -156,9 +178,15 @@ date_default_timezone_set("Asia/Calcutta");
               </select>
               <!-- <input type="text" class="form-control" name="name1" id="name1"  required="required" placeholder="VENDOR Name"> -->
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <label for="validationDefault01" class="form-label">Mobile No.:</label>
-              <input type="text" class="form-control" id="Mobile_No" name="Mobile_No" required>
+              <input type="text" class="form-control" id="Mobile_No" name="Mobile_No" minlength="4" maxlength="10" pattern="[6789][0-9]{9}" required placeholder="9732****">
+            </div>
+             <div class="col-md-2">
+              <label for="validationDefault01" class="form-label">EMP-CODE.:</label>
+              <input type="text" class="form-control" id="EMP_CODE" name="EMP_CODE" pattern="[W123456789][0-9]{8,15}" required placeholder="W2013*** or 2015*****">
+              <div id="Serial_Number_check"></div>
+
             </div>
             <!--  <div class="col-md-3">
                               <label for="validationDefault02" class="form-label">DELIVERY DATE:</label>
@@ -190,7 +218,7 @@ date_default_timezone_set("Asia/Calcutta");
     <br>
     <div class="sales-boxes">
       <div class="recent-sales box" style="width: 99%;">
-        <div class="title">Display image</div>
+        <div class="title">Display All users</div>
 
         <div class="table-responsive box">
 
@@ -216,7 +244,7 @@ date_default_timezone_set("Asia/Calcutta");
             </thead>
             <tbody>
               <?php
-              $query = mysqli_query($con, " SELECT * FROM `user` ORDER BY `id` DESC") or die(mysqli_error($con));
+              $query = mysqli_query($con, " SELECT * FROM `user` WHERE `active`='0' ORDER BY `id` DESC") or die(mysqli_error($con));
               // echo 1;die;
               while ($row = mysqli_fetch_array($query)) {
                 $id = $row['id'];
@@ -235,8 +263,16 @@ date_default_timezone_set("Asia/Calcutta");
                   <td><?php echo $row['emp_id'] ?></td>
 
                   <td><button class="btn btn-warning" data-toggle="modal" type="button" data-target="#update_modal<?php echo $row['id'] ?>"><span class="glyphicon glyphicon-edit"></span> Edit</button></td>
-
-                  <td><a href="admin_USER_A_D.php?id=<?php echo $row['id']; ?>&ACT=<?php echo $row['active']; ?>"><?php if ($row['active'] == 1) {   ?> <span class="glyphicon glyphicon-unchecked" style="font-size:20px; color:red;">NO</span> <?php } else { ?> <span class="glyphicon glyphicon-unchecked" style="font-size:20px; color:GREEN;">YES</span><?php } ?></span></a></td>
+                   <?php
+              $mapping = mysqli_query($con, " SELECT * FROM `product_add`") or die(mysqli_error($con));
+              
+              while ($row_mapping = mysqli_fetch_array($mapping)) {
+                $emp_code=$row_mapping['emp_code'];
+                //echo  $emp_code;die;
+              }
+                ?>
+               
+                  <td><?php if ($emp_code == $row['emp_id'] ){}else{if ($row['active'] == 0) {   ?><a href="admin_USER_A_D.php?id=<?php echo $row['id']; ?>&ACT=<?php echo $row['active']; ?>" onclick="return checkTransfer()" > <span class="glyphicon glyphicon-unchecked" style="font-size:20px; color:red;">NO</span> <?php } else { ?> <span class="glyphicon glyphicon-unchecked" style="font-size:20px; color:GREEN;">YES</span><?php } } ?></span></a></td>
                 <?php
                 include 'admin_USER_modify.php';
               }
@@ -268,3 +304,39 @@ date_default_timezone_set("Asia/Calcutta");
   <?php
   include('admin_footer.php');
   ?>
+  <script>
+function upperCase() {
+  const x = document.getElementById("name");
+  x.value = x.value.toUpperCase();
+}
+</script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $('#EMP_CODE').keyup(function() {
+      const EMP_CODE = $('#EMP_CODE').val();
+     //alert(EMP_CODE);
+      $.ajax({
+        type: 'POST',
+        url: 'admin_USER-SLNO_check.php',
+        data: {'EMP_CODE':EMP_CODE},
+        success: function(data) {
+           // alert(data);
+          $('#Serial_Number_check').html(data);
+        }
+      })
+    });
+
+});
+
+ 
+
+
+</script>
+<!-- Are you sure return or not -->
+    <script language="JavaScript" type="text/javascript">
+function checkTransfer(){
+    return confirm('Are you sure you want to Transfer?');
+}
+</script>

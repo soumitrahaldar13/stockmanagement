@@ -138,7 +138,7 @@ date_default_timezone_set("Asia/Calcutta");
             </div>
             <div class="col-md-4">
               <label for="validationDefault01" class="form-label">VENDOR Mobile No.:</label>
-              <input type="text" class="form-control" name="Mobile" id="Mobile" required>
+              <input type="text" class="form-control" name="Mobile" id="Mobile" minlength="4" maxlength="10" pattern="[6789][0-9]{9}"  required>
             </div>
             <!--  <div class="col-md-2">
                               <label for="validationDefault02" class="form-label">START DATE:</label>
@@ -195,8 +195,9 @@ date_default_timezone_set("Asia/Calcutta");
             </thead>
             <tbody>
               <?php
-              $query = mysqli_query($con, " SELECT * FROM `vendor` ORDER BY `id` DESC") or die(mysqli_error($con));
+              $query = mysqli_query($con, " SELECT * FROM `vendor` ORDER BY `NAME` ASC") or die(mysqli_error($con));
               // echo 1;die;
+              $counter = 0;
               while ($row = mysqli_fetch_array($query)) {
                 $id = $row['ID'];
                 $name = $row['NAME'];
@@ -205,7 +206,7 @@ date_default_timezone_set("Asia/Calcutta");
 
                 <tr>
 
-                  <td><?php echo $row['ID'] ?></td>
+                  <td><?php echo ++$counter ?></td>
                   <td><?php echo $row['NAME'] ?></td>
                   <td><?php echo $row['Address'] ?></td>
                   <td><?php echo $row['mobile'] ?></td>

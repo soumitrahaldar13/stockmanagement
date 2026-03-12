@@ -14,16 +14,19 @@ function run_insert_query($query, $con)
 
 function get_product_details_by_empId($con, $empId)
 {
-    $sql_query = "SELECT * FROM ip as ip JOIN user as u JOIN product_add prdAdd ON u.id = ip.ID AND ip.IP = prdAdd.IP WHERE u.emp_id ='{$empId}'";
+    //print(r);
+    // SELECT * FROM ip as ip JOIN user as u JOIN product_add prdAdd ON u.emp_id = prdAdd.emp-code AND ip.IP = prdAdd.IP WHERE u.emp_id ='e-002';
+    //SELECT * FROM product_add INNER JOIN ip ON product_add.IP = ip.ID LEFT JOIN user ON product_add.emp_code = user.emp_id WHERE product_add.emp_code =
+    $sql_query = "SELECT * FROM product_add INNER JOIN ip ON product_add.IP = ip.ID LEFT JOIN user ON product_add.emp_code = user.emp_id WHERE product_add.emp_code = '{$empId}'";
     return run_query($sql_query, $con);
 }
 
 function get_all_ips_by_empId($con, $empId)
 {
-    $sql_query = "SELECT * from ip JOIN user ON user.ip_id=ip.ID AND user.emp_id='{$empId}'";
+    //SELECT * from ip JOIN user ON user.ip_id=ip.ID AND user.emp_id=
+    $sql_query = "SELECT * FROM product_add INNER JOIN ip ON product_add.IP = ip.ID LEFT JOIN user ON product_add.emp_code = user.emp_id WHERE product_add.emp_code = '{$empId}'";
     return run_query($sql_query, $con);
 }
-
 function get_all_non_used_ips($con)
 {
     $sql_query = "SELECT * from ip where in_use = 0";
@@ -32,7 +35,12 @@ function get_all_non_used_ips($con)
 
 function get_all_products($con)
 {
-    $sql_query = "SELECT * from product ORDER BY NAME";
+    $sql_query = "SELECT * FROM `product`WHERE`ACTIVE`=2 ORDER BY `ID` ASC;";
+    return run_query($sql_query, $con);
+}
+function get_all_products_serial_no($con, $product_name)
+{
+    $sql_query = "SELECT * FROM $product_name WHERE `ewaste`='0' AND `Delivery_Date`= '0000-00-00' ORDER BY `Serial_Number` DESC";
     return run_query($sql_query, $con);
 }
 

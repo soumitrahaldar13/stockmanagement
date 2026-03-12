@@ -2,7 +2,7 @@
 
 <?php
 //echo 1;die;
-require_once 'dbConnection.php';
+ require_once __DIR__ . '/../dbConnection/dbConnection.php';
     extract($_REQUEST);
     include('dbConnection.php');
   $id = $_GET['id'];
@@ -17,11 +17,11 @@ $query=mysqli_query($con," SELECT * FROM `ups` WHERE `id`='$id'")or die(mysqli_e
                             							//$product_name= ups;
                             							$Serial_Number=$row['Serial_Number'];
                             							$date = date("Y-m-d");
-                            							$text = acos(2);
+                            							$text = 'Null';
                             						}
-            //echo "INSERT INTO `byback`(`id`, `product_name`, `serial_no`, `ewaste_date`, `date`, `active`) VALUES ('','ups','$Serial_Number','$date','$text','0')";die;             
+   // echo "INSERT INTO `byback`(`id`, `product_name`, `serial_no`, `ewaste_date`, `date`, `active`) VALUES ('','ups','$Serial_Number','$date','$text','0')";die;             
 
-$query=$con->query("INSERT INTO `byback`(`id`, `product_name`, `serial_no`, `ewaste_date`, `date`, `active`) VALUES ('','UPS','$Serial_Number','$date','$text','0')");
+$query=$con->query("INSERT INTO `byback`(`id`, `product_name`, `serial_no`, `ewaste_date`, `date`, `active`) VALUES ('','ups','$Serial_Number','$date','$text','0')");
 
 $query1=$con->query("UPDATE `UPS` SET `ewaste`='1' WHERE `id`='$id'");
 //echo $del;

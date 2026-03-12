@@ -13,12 +13,12 @@
             <div class="form-group">
               <label>GEM NO:</label>
               <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
-             <input type="text" name="GEM_NO" value="<?php echo $row['GEM_NO']?>" class="form-control" required="required"/>
+             <input type="text" name="GEM_NO" value="<?php echo $row['GEM_NO']?>" class="form-control" minlength="5" maxlength="20" required="required"/>
             </div>
             <div class="form-group">
               <label>GEM Date:</label>
               <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
-               <input type="date" name="GEM_Date" value="<?php echo $row['GEM_Date']?>" class="form-control" required="required"/>
+               <input type="date" name="GEM_Date" value="<?php echo $row['GEM_Date']?>" placeholder="Date" class="form-control" required="required"/>
             </div>
             <div class="form-group">
               <label>VENDOR NAME:</label>
@@ -39,15 +39,6 @@
               <label>Model No:</label>
               <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
              <input type="text" name="Model_No" value="<?php echo $row['Model_No']?>" class="form-control" required="required"/>
-            </div>
-
-
-
-            <div class="form-group">
-              <label>Delevary Date:</label>
-              <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
-                        <input type="date" name="Delevary_Date" value="<?php echo $row['Delevary_Date'] ?>" class="form-control" />              
-             
             </div>
              <div class="form-group">
               <label>Problem:</label>

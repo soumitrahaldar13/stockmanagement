@@ -1,5 +1,5 @@
 <?php
-  require_once 'dbConnection.php';
+  require_once __DIR__ . '/../dbConnection/dbConnection.php';
 
   if(ISSET($_POST['update_monitor'])){
     //echo 1;die;
@@ -12,7 +12,7 @@
     $Model_No = $_POST['Model_No'];
     $Display_Size = $_POST['Display_Size'];
      $Defunct=$_POST['Defunct'];
-    $text = acos(2);
+    $text = 'Null';
                 
     $Problem= $_POST['Problem'];
      if($Problem > 0){
@@ -33,7 +33,7 @@
                 }
 
  
-//echo "UPDATE `monitor` SET `GEM_NO`='$GEM_NO',`GEM_Date`='$GEM_Date',`VENDOR_NAME`='$VENDOR_NAME',`BRAND_NAME`='$BRAND_NAME',`Serial_Number`='$Serial_Number',`Model_No`='$Model_No',``Problem`='$Problem1',`START_DATE`='$START_DATE1',`END_DATE`='$END_DATE1',`Defunct`='$Defunct',`Display_Size`='$Display_Size' WHERE `id`='$id'";die;
+// echo "UPDATE `monitor` SET `GEM_NO`='$GEM_NO',`GEM_Date`='$GEM_Date',`VENDOR_NAME`='$VENDOR_NAME',`BRAND_NAME`='$BRAND_NAME',`Serial_Number`='$Serial_Number',`Model_No`='$Model_No',`Problem`='$Problem1',`START_DATE`='$START_DATE1',`END_DATE`='$END_DATE1',`Defunct`='$Defunct',`Display_Size`='$Display_Size' WHERE `id`='$id'";die;
 
 
     //echo "UPDATE `ups` SET `Delevary_Date`='$Delevary_Date1', WHERE `id`='$id'";die;
