@@ -126,7 +126,7 @@ $sec = "260";
     </div>
   
     <ul class="nav-links">
-    	<h4 style="text-align: center;color: #ffff"><?php echo $_SESSION['role']._.$_SESSION['Cell']; ?></h4>
+    	<h4 style="text-align: center;color: #ffff"><?php echo $_SESSION['role']."_".$_SESSION['Cell']; ?></h4>
       <?php
       $role = $_SESSION['role'];
        // $query = mysqli_query($con, "SELECT * FROM `product` WHERE $role = 1 ORDER BY `id` ASC") or die(mysqli_error($con));
