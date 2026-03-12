@@ -1,5 +1,7 @@
 
 
+ 
+                                 
 <div class="modal fade" id="update_modal<?php echo $row['id']?>" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -13,17 +15,44 @@
             <div class="form-group">
               <label>USER NAME:</label>
               <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
-             <input type="text" name="NAME" value="<?php echo $row['NAME']?>" class="form-control" required="required"/>
+             <input type="text" name="NAME" value="<?php echo $row['NAME']?>" class="form-control" required="required" pattern="[A-Za-z ]{1,32}"/>
             </div>
             <div class="form-group">
               <label>DESIGNATION:</label>
               <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
-               <input type="text" name="DESIGNATION" value="<?php echo $row['DESIGNATION']?>" class="form-control" required="required">
+               <input type="text" name="DESIGNATION" value="<?php echo $row['DESIGNATION']?>" class="form-control" required="required" pattern="[A-Za-z ]{1,32}">
             </div>
              <div class="form-group">
               <label> CELL:</label>
               <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
-             <input type="text" name="CELL" value="<?php echo $row['CELL']?>" class="form-control" required="required"/>
+           <!--  <input type="text" name="CELL" value="<?php echo $row['CELL']?>" class="form-control" required="required" pattern="[A-Za-z ]{1,32}"/>  -->
+             <select name="FLOOR_NO" id="FLOOR_NO" class="form-control" required="required">
+                                  <option value="<?php echo $row['CELL']?>"><?php echo $row['CELL']?></option>
+                                   <option value="Account">Account</option>
+                                  <option value="ADDITIONAL SECRETARY">ADDITIONAL SECRETARY</option>
+                                  <option value="ASSISTANT SECRETARY">ASSISTANT SECRETARY</option>
+                                  <option value="AUDIT">AUDIT</option>
+                                  <option value="BAY">BAY</option>
+                                  <option value="Budget">Budget</option>
+                                  <option value="BLOCK">BLOCK</option>
+                                  <option value="CCA">CCA</option>
+                                  <option value="DEPUTY SECRETARY">DEPUTY SECRETARY</option>
+                                  <option value="ENGINEERING">ENGINEERING</option>
+                                  <option value="ESTT">ESTT</option>
+                                  <option value="FINANCIAL ADVISOR">FINANCIAL ADVISOR</option>
+                                  <option value="Group D">Group D</option>
+                                  <option value="ISSUE  DESP">ISSUE  DESP</option>
+                                  <option value="ISSUE & DESP">ISSUE & DESP</option>
+                                  <option value="IT">IT</option>
+                                  <option value="JOINT SECRETARY">JOINT SECRETARY</option>
+                                  <option value="JRY">JRY</option>
+                                  <option value="JT. BDO">JT. BDO</option>
+                                  <option value="Law">Law</option>
+                                  <option value="MEDI.">MEDI.</option>
+                                  <option value="MGNREGA">MGNREGA</option>
+                                  <option value="NSAP">NSAP</option>
+                                </select>
+             		
             </div>
 
             <div class="form-group">
@@ -32,7 +61,7 @@
              <!-- <input type="text" name="FLOOR_NO" value="<?php echo $row['FLOOR_NO']?>" class="form-control" required="required"/> -->
              <select name="FLOOR_NO" id="FLOOR_NO" class="form-control" required="required">
                                   <option value="<?php echo $row['FLOOR_NO']?>"><?php echo $row['FLOOR_NO']?></option>
-                                  <option value="6">6</option>
+                                 <option value="6">6</option>
                                   <option value="7">7</option>
                                   <option value="8">8</option>
                                   <option value="9">9</option>
@@ -42,7 +71,13 @@
             <div class="form-group">
               <label>Mobile No.:</label>
               <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
-             <input type="text" name="MOBILE_NO" value="<?php echo $row['MOBILE_NO']?>" class="form-control" required="required"/>
+             <!-- <input type="text" name="MOBILE_NO" value="<?php echo $row['MOBILE_NO']?>" class="form-control" required="required" minlength="4" maxlength="10" pattern="[6789][0-9]{9}" /> -->
+             <input type="text" name="MOBILE_NO" value="<?php echo $row['MOBILE_NO']?>" class="form-control" />
+            </div>
+             <div class="form-group">
+              <label>EMP_CODE.:</label>
+              <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
+             <input type="text" name="emp_id" id="emp_id" value="<?php echo $row['emp_id']?>" class="form-control" required="required" pattern="[0-9]{8,15}" disabled />
             </div>
             
           </div>

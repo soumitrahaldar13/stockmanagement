@@ -3,6 +3,10 @@
 session_start();
 
 require_once __DIR__ . '/../dbConnection/dbConnection.php';
+// following code for a refreshing page 
+$page = $_SERVER['PHP_SELF'];
+$sec = "260";
+// following code for a refreshing page 
 ?>
 <!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
 <html lang="en" dir="ltr">
@@ -10,15 +14,24 @@ require_once __DIR__ . '/../dbConnection/dbConnection.php';
 <head>
   <meta charset="UTF-8">
   <title>stock management system</title>
+
   <link rel="stylesheet" href="../css/style.css">
+  <link href="../images/logo/pngaaa.com-5968111.png" rel="icon">
+  <link href="../images/logo/5968111-middle.png" rel="apple-touch-icon">
   <!-- Boxicons CDN Link -->
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--following code for a refreshing page  -->
+   <meta http-equiv="refresh" content="<?php echo $sec?>;URL='<?php echo $page?>'">
+   <!-- following code for a refreshing page -->
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+
 <style type="text/css">
   table {
     font-family: arial, sans-serif;
@@ -72,92 +85,88 @@ require_once __DIR__ . '/../dbConnection/dbConnection.php';
     margin-inline-end: 0px;
     padding-inline-start: 40px;
   }
+/*add*/
+.sidebar .submenu {
+  display: none;
+  background: #3d566e;
+  padding-left: 15px;
+}
+
+/* Submenu list items */
+.sidebar .submenu li {
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.sidebar .submenu li:hover {
+  background: #4b6584;
+}
+
+/* Arrow style */
+.arrow {
+  float: right;
+  transition: 0.3s;
+}
+.rotate {
+  transform: rotate(90deg);
+}
+
+
+
+
 </style>
 
 <body>
   <!-- side bar  -->
   <div class="sidebar">
     <div class="logo-details">
-      <!-- <i class='bx bxl-c-plus-plus'></i> -->
-      <i><img src="../images/logo/pngaaa.com-5968111.png" style="width: 70px;"></i>
       <span class="logo_name" style="width: 10px;">Stock Management System</span>
 
     </div>
-
+  
     <ul class="nav-links">
-      <li>
-        <a href="admin_Dashboard.php" class="active">
-          <i class='bx bx-grid-alt'></i>
-          <span class="links_name">Dashboard</span>
-        </a>
-      </li>
-      <!--  <li>
-                          <a href="admin_Image.php" class="active">
-                            <i class='bx bx-image-alt' ></i>
-                            <span class="links_name">MONITOR</span>
-                          </a>
-                        </li>
-                        
-                        <li>
-                          <a href="admin_PROJECT.php" class="active">
-                            <i class='bx bx-grid-alt' ></i>
-                            <span class="links_name">DESKTOP</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="admin_donet.php" class="active">
-                            <i class='bx bx-donate-heart' ></i>
-                            <span class="links_name">LAPTOP</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="admin_contact_us.php" class="active">
-                            <i class='bx bx-donate-heart' ></i>
-                            <span class="links_name">SCANNER</span>
-                          </a>
-                        </li> 
-                         <li>
-                          <a href="admin_contact_us.php" class="active">
-                            <i class='bx bx-donate-heart' ></i>
-                            <span class="links_name">ALL in ONE</span>
-                          </a>
-                        </li> -->
+    	<h4 style="text-align: center;color: #ffff"><?php echo $_SESSION['role']._.$_SESSION['Cell']; ?></h4>
       <?php
-      $query = mysqli_query($con, " SELECT * FROM `product` ORDER BY `id` DESC") or die(mysqli_error($con));
-      // echo 1;die;
+      $role = $_SESSION['role'];
+       // $query = mysqli_query($con, "SELECT * FROM `product` WHERE $role = 1 ORDER BY `id` ASC") or die(mysqli_error($con));
+      $query = mysqli_query($con, "SELECT * FROM `product` WHERE `$role` = 1 && `ACTIVE`= 1 ORDER BY `id` ASC") or die(mysqli_error($con));
       while ($row = mysqli_fetch_array($query)) {
       ?>
 
         <li>
           <a href="<?php echo $row['url'] ?>" class="active">
             <i class='bx bx-donate-heart'></i>
-            <span class="links_name"><?php echo $row['NAME'] ?></span>
+            <span class="links_name"><?php echo $row['USED _NAME'] ?></span>
           </a>
         </li>
       <?php
       }
+ 		if($role == 'SuperAdmin'){
       ?>
-      <li>
-        <a href="admin_USER.php" class="active">
-          <i class='bx bx-image-alt'></i>
-          <span class="links_name">USER</span>
-        </a>
-      </li>
 
-      <li>
-        <a href="admin_VENDOR.php" class="active">
-          <i class='bx bx-grid-alt'></i>
-          <span class="links_name">VENDOR</span>
-        </a>
-      </li>
-      <li>
-        <a href="admin_AMC.php" class="active">
-          <i class='bx bx-donate-heart'></i>
-          <span class="links_name">AMC</span>
-        </a>
-      </li>
-
-
+       <li class="has-sub" style="text-align: center;color: #ffff">
+       		<i class='bx bx-donate-heart'></i>
+		      PRODUCT <span class="arrow">▶</span>
+		      <ul class="submenu">
+		      	<?php
+		      	 $query = mysqli_query($con, "SELECT * FROM `product` WHERE `$role` = 1 && `ACTIVE`= 2 ORDER BY `id` ASC") or die(mysqli_error($con));
+		      while ($row = mysqli_fetch_array($query)) {
+		      ?>
+		        <li>
+		        	<a href="<?php echo $row['url'] ?>">
+		        		<i class='bx bx-donate-heart'></i>
+		        		<span class="links_name"><?php echo $row['USED _NAME'] ?></span>
+		        	</a>
+		        </li>
+		      <?php
+			  }
+			  ?>
+		      </ul>
+       </li>
+       <?php
+       }
+       ?>
       <li class="log_out">
         <a href="../authentication/logout.php">
           <i class='bx bx-log-out'></i>
@@ -167,3 +176,16 @@ require_once __DIR__ . '/../dbConnection/dbConnection.php';
     </ul>
   </div>
   <!-- end side bars -->
+
+
+
+ <script>
+$(document).ready(function(){
+  $(".has-sub").click(function(){
+    // toggle submenu under clicked item
+    $(this).children(".submenu").slideToggle();
+    // rotate arrow
+    $(this).find(".arrow").toggleClass("rotate");
+  });
+});
+</script>

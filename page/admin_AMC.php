@@ -4,15 +4,14 @@ require_once __DIR__ . '/../dbConnection/dbConnection.php';
 include('admin_sidenav.php');
 
 if (isset($_POST['submit1']) != "") {
-  //echo 1;die;
-  $AMC_Name = $_POST['AMC_Name'];
-  $AMC_Address = $_POST['AMC_Address'];
-  $Mobile_No = $_POST['Mobile_No'];
+  //echo 1;die;    
+  $VENDOR_ID = $_POST['VENDOR_ID'];
+  $TENDER_DETAILS = $_POST['TENDER_DETAILS'];
   $START_DATE = $_POST['START_DATE'];
   //echo $START_DATE;die;
   $END_DATE = $_POST['END_DATE'];
-  $date1 = date_create("$START_DATE");
-  date_modify($date1, "+32 days");
+  $date1 = date_create("$END_DATE");
+  date_modify($date1, "-2 days");
   $Reminder_DATE = date_format($date1, "Y-m-d");
 
 
@@ -21,12 +20,12 @@ if (isset($_POST['submit1']) != "") {
   //$Reminder_DATE=$_POST['$START_DATE'];
 
 
-  // echo "INSERT INTO `amc`(`id`, `name`, `address`, `mobile`, `start date`, `end date`, `Reminder date`) VALUES ('','$AMC_Name','$AMC_Address','$Mobile_No','$START_DATE','$END_DATE','$Reminder_DATE')";die;
+  //echo "INSERT INTO `amc`(`id`, `name`, `tender`, `active`, `start_date`, `end_date`, `Reminder_date`) VALUES ('','$VENDOR_ID','$TENDER_DETAILS','0','$START_DATE','$END_DATE','$Reminder_DATE')";die;
 
 
 
 
-  $query = $con->query("INSERT INTO `amc`(`id`, `name`, `address`, `mobile`, `start_date`, `end_date`, `Reminder_date`) VALUES ('','$AMC_Name','$AMC_Address','$Mobile_No','$START_DATE','$END_DATE','$Reminder_DATE')");
+  $query = $con->query("INSERT INTO `amc`(`id`, `name`, `tender`, `active`, `start_date`, `end_date`, `Reminder_date`) VALUES ('','$VENDOR_ID','$TENDER_DETAILS','0','$START_DATE','$END_DATE','$Reminder_DATE')");
   if ($query) {
     echo "<script>alert('update AMC Sucessfully');window.location.href='admin_AMC.php'; </script>";
     // header("location:admin_image.php");
@@ -36,64 +35,7 @@ if (isset($_POST['submit1']) != "") {
   }
 }
 ?>
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<style type="text/css">
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  
-}
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-
-
-.pagination ul {
-    display: inline-block;
-    *display: inline;
-    margin-bottom: 0;
-    margin-left: 0;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    *zoom: 1;
-    -webkit-box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
-    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
-}
-ol, ul {
-    margin-top: 0;
-    margin-bottom: 10px;
-}
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-user agent stylesheet
-ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 40px;
-}
-
-
-</style> -->
 
 
 <meta charset="utf-8">
@@ -141,22 +83,28 @@ date_default_timezone_set("Asia/Calcutta");
           <!-- <table cellpadding="0" cellspacing="0" border="0"> -->
           <div class="row ">
             <div class="col-md-3">
-              <label for="validationDefault01" class="form-label">AMC Name:</label>
-              <input type="text" class="form-control" name="AMC_Name" id="AMC_Name" required="required" placeholder="AMC Name">
+              <label for="validationDefault01" class="form-label">VENDOR NAME:</label>
+              <select id="VENDOR_ID" name="VENDOR_ID" class="form-control" required="required">
+                <option value="">Choose</option>
+                <?php
+                $ret = mysqli_query($con, "SELECT * FROM `vendor`");
+
+                while ($row = mysqli_fetch_array($ret)) { ?>
+                  <option value="<?php echo $row['ID']; ?>"><?php echo $row['NAME']; ?></option>
+                <?php } ?>
+
+              </select>
             </div>
             <div class="col-md-3">
-              <label for="validationDefault02" class="form-label">AMC Address:</label>
-              <textarea class="form-control" id="AMC_Address" name="AMC_Address" required="required" placeholder="AMC Address"></textarea>
+              <label for="validationDefault02" class="form-label">TENDER DETAILS:</label>
+              <textarea class="form-control" id="TENDER_DETAILS" name="TENDER_DETAILS" required="required" placeholder="AMC Address" maxlength="30" minlength="6"></textarea>
             </div>
-            <div class="col-md-2">
-              <label for="validationDefault01" class="form-label">AMC Mobile No.:</label>
-              <input type="text" class="form-control" id="Mobile_No" name="Mobile_No" required>
-            </div>
-            <div class="col-md-2">
+           
+            <div class="col-md-3">
               <label for="validationDefault02" class="form-label">START DATE:</label>
               <input type="date" class="form-control" id="START_DATE" name="START_DATE" required>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
               <label for="validationDefault02" class="form-label">END DATE:</label>
               <input type="date" class="form-control" id="END_DATE" name="END_DATE" required>
             </div>
@@ -194,12 +142,13 @@ date_default_timezone_set("Asia/Calcutta");
 
               <tr>
                 <th>ID</th>
-                <th>AMC Name:</th>
-                <th>AMC Address:</th>
-                <th>AMC Mobile No.:</th>
+                <th>Name:</th>
+                <th>Mobile:</th>
+                <th>TENDER DETAILS:</th>
                 <th>START DATE:</th>
                 <th>END DATE:</th>
                 <th>Reminder DATE:</th>
+                <th>active</th>
                 <th>modify</th>
                 <!-- <th>Remove</th> -->
 
@@ -207,31 +156,46 @@ date_default_timezone_set("Asia/Calcutta");
             </thead>
             <tbody>
               <?php
-              $query = mysqli_query($con, " SELECT * FROM `amc` ORDER BY `id` DESC") or die(mysqli_error($con));
-              // echo 1;die;
+              $query = mysqli_query($con, " SELECT * FROM amc,vendor WHERE amc.name=vendor.ID ") or die(mysqli_error($con));
+              // echo 1;die;   id`, `name`, `address`, `active`, `start_date`, `end_date`, `Reminder_date`
               while ($row = mysqli_fetch_array($query)) {
                 $id = $row['id'];
                 $name = $row['name'];
-                $date = $row['end date'];
+                $date = $row['start_date'];
+                $today = date("Y-m-d");
+                //echo $today;die;
               ?>
 
                 <tr>
 
                   <td><?php echo $row['id'] ?></td>
-                  <td><?php echo $row['name'] ?></td>
-                  <td><?php echo $row['address'] ?></td>
-                  <td><?php echo $row['mobile'] ?></td>
+                  <td><?php echo $row['NAME'] ?></td>
+                   <td><?php echo $row['mobile'] ?></td>
+                  <td><?php echo $row['tender'] ?></td>
                   <td><?php echo $row['start_date'] ?></td>
                   <td><?php echo $row['end_date'] ?></td>
                   <td><?php echo $row['Reminder_date'] ?></td>
+                  <td><?php echo $row['active'] ?></td>
+                  <!-- <td><?php echo $today ?></td> -->
+
                   <!-- <td><a href="../images/project/<?= $row['name']; ?>" download title="click to download"><span class="glyphicon glyphicon-paperclip" style="font-size:20px; color:blue"></span></a></td> -->
                   <!-- <td><a href="admin_PROJECT_modify.php?del=<?php echo $row['id']; ?>" ><span class="glyphicon glyphicon-edit" style="font-size:20px; color:red;"></span></a></td> -->
+                  
+                  <td><?php if ( $today > $row['end_date'] ){
+                    //echo "UPDATE `amc` SET `active`=1 WHERE `id`='$id'";
+                   
+                $AMC_DEACTIVE=$con->query("UPDATE `amc` SET `active`=1 WHERE `id`='$id'");
+                      ?>
+                    <p style="color: red">Expired</p>
 
-                  <td><button class="btn btn-warning" data-toggle="modal" type="button" data-target="#update_modal<?php echo $row['id'] ?>"><span class="glyphicon glyphicon-edit"></span> Edit</button></td>
-
-                  <!--  <td><a href="admin_AMC_deleted.php?del=<?php echo $row['id']; ?>" ><span class="glyphicon glyphicon-trash" style="font-size:20px; color:red;"></span></a></td> -->
                 <?php
-                include 'admin_AMC_modify.php';
+                      }else{
+                        ?>
+                         <button class="btn btn-warning" data-toggle="modal" type="button" data-target="#update_modal<?php echo $row['id']?>"><span class="glyphicon glyphicon-edit"></span> Edit</button></td>
+                         
+                        <?php
+                      }
+                    include 'admin_AMC_modify.php';
               }
 
                 ?>
@@ -259,5 +223,8 @@ date_default_timezone_set("Asia/Calcutta");
 
 
   <?php
+
+
+
   include('admin_footer.php');
   ?>

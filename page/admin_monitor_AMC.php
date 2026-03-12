@@ -1,7 +1,7 @@
 <?php
-  require_once 'dbConnection.php';
+  require_once __DIR__ . '/../dbConnection/dbConnection.php';
     extract($_REQUEST);
-    include('dbConnection.php');
+    
   $id = $_GET['id'];
 $AMC = $_GET['AMC'];
     //echo "UPDATE `monitor` SET `AMC`='$AMC' WHERE `id`='$id'";die;

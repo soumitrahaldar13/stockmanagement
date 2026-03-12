@@ -1,5 +1,5 @@
 <?php
-  require_once 'dbConnection.php';
+  require_once __DIR__ . '/../dbConnection/dbConnection.php';
     extract($_REQUEST);
     include('dbConnection.php');
   $id = $_GET['id'];
@@ -14,8 +14,8 @@ $AMC = $_GET['AMC'];
                 }
 
         
- //echo "UPDATE `ups` SET `AMC`='$val' WHERE `id`='$id'";die;
- $query=$con->query("UPDATE `ups` SET `AMC`='$val' WHERE `id`='$id'");
+ //echo "UPDATE `ups` SET `is_amc`='$val' WHERE `id`='$id'";die;
+ $query=$con->query("UPDATE `ups` SET `is_amc`='$val' WHERE `id`='$id'");
 
 if($query){
 header("location:admin_UPS.php");

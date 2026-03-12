@@ -18,7 +18,7 @@ $query=mysqli_query($con," SELECT * FROM product_add WHERE `USER_MOBILE`=$user")
 while($row=mysqli_fetch_array($query))
 {
 ?>
-          <div class="title">USER USED PRODUCT's:</div>
+          <div class="title">USER USED PRODUCT's.:</div>
             <div class="col-md-6">
                 <div class="col-md-4">
                               <label for="validationDefault01" class="form-label">USER IP</label>

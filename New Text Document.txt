@@ -1,0 +1,26 @@
+SELECT user.emp_id, user.NAME, user.DESIGNATION, user.CELL, user.FLOOR_NO, user.MOBILE_NO, user.active AS user_active, user.ip_id, ip.IP, ip.ACTIVE AS ip_active, ip.in_use, GROUP_CONCAT(product_add.PRODUCT_NAME SEPARATOR '/ ') AS PRODUCT_NAMES, GROUP_CONCAT(product_add.Serial_Number SEPARATOR '/ ') AS SERIAL_NUMBERS, GROUP_CONCAT(product_add.DATE_OF_ISSUE SEPARATOR '/ ') AS ISSUE_DATES FROM product_add JOIN ip ON product_add.IP = ip.ID JOIN user ON product_add.emp_code = user.emp_id GROUP BY user.emp_id
+
+
+SELECT 
+    user.emp_id,
+    user.NAME,
+    user.DESIGNATION,
+    user.CELL,
+    user.FLOOR_NO,
+    user.MOBILE_NO,
+    user.active AS user_active,
+    user.ip_id,
+    ip.IP,
+    ip.ACTIVE AS ip_active,
+    ip.in_use,
+    GROUP_CONCAT(product_add.PRODUCT_NAME SEPARATOR ', ') AS PRODUCT_NAMES,
+    GROUP_CONCAT(product_add.Serial_Number SEPARATOR ', ') AS SERIAL_NUMBERS,
+    GROUP_CONCAT(product_add.DATE_OF_ISSUE SEPARATOR ', ') AS ISSUE_DATES
+FROM 
+    product_add
+JOIN 
+    ip ON product_add.IP = ip.ID
+JOIN 
+    user ON product_add.emp_code = user.emp_id
+GROUP BY 
+    user.emp_id;

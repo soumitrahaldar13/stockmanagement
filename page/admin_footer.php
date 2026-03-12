@@ -1,4 +1,11 @@
-</section>
+
+ <!-- <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+
+    
+
+    <div class="footer-top" style="background-image: url('../images/mainfooterbg.png');'">
+    </div>
+ </footer> -->
 <script>
    let sidebar = document.querySelector(".sidebar");
 let sidebarBtn = document.querySelector(".sidebarBtn");

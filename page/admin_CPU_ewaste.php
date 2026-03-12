@@ -2,9 +2,9 @@
 
 <?php
 //echo 1;die;
-require_once 'dbConnection.php';
+  require_once __DIR__ . '/../dbConnection/dbConnection.php';
     extract($_REQUEST);
-    include('dbConnection.php');
+    
   $id = $_GET['id'];
 //echo $id;die;
 //echo "select * from project where id='$del'";die;

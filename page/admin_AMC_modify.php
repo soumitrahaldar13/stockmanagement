@@ -13,18 +13,19 @@
             <div class="form-group">
               <label>AMC NAME:</label>
               <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
-             <input type="text" name="name" value="<?php echo $row['name']?>" class="form-control" required="required"/>
+             <input type="text" name="name" value="<?php echo $row['NAME'] ?>" class="form-control" pattern="[A-Za-z ]{1,32}" required="required"  disabled/>
             </div>
-            <div class="form-group">
-              <label>AMC Address:</label>
-              <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
-               <textarea type="text" name="Address"  class="form-control" required="required"><?php echo $row['address']?></textarea>
-            </div>
+           
 
             <div class="form-group">
               <label>Mobile No.:</label>
               <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
-             <input type="text" name="Mobile" value="<?php echo $row['mobile']?>" class="form-control" required="required"/>
+             <input type="text" name="Mobile" value="<?php echo $row['mobile']?>" class="form-control" minlength="4" maxlength="10" pattern="[6789][0-9]{9}" required="required"  disabled/>
+            </div>
+             <div class="form-group">
+              <label>tender :</label>
+              <input type="hidden" name="id" value="<?php echo $row['id']?>"/>
+               <textarea type="text" name="tender"  class="form-control" required="required"><?php echo $row['tender'] ?></textarea>
             </div>
             <div class="form-group">
               <label>START DATE:</label>

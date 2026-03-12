@@ -5,11 +5,13 @@ require_once __DIR__ . '/../../helpers/query_helpers.php';
 if (!empty($_POST["empCode"])) {
     $emp_code = $_POST["empCode"];
     $rows = get_product_details_by_empId($con, $emp_code);
+
     if (count($rows) == 0) {
 ?>
         <h4 class='no-result'>No Data Found!!</h4>`
     <?php } else {
         $user_details = $rows[0];
+        print($row);
     ?>
 
         <h4>User details</h4>
@@ -49,8 +51,8 @@ if (!empty($_POST["empCode"])) {
                     <tr>
 
                         <td><?php echo $i['IP'] ?></td>
-                        <td><?php echo $i['PRODUCT NAME'] ?></td>
-                        <td><?php echo $i['SERIAL_NO'] ?></td>
+                        <td><?php echo $i['PRODUCT_NAME'] ?></td>
+                        <td><?php echo $i['Serial_Number'] ?></td>
                     </tr>
                 <?php
                 } ?>

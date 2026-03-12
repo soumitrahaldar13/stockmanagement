@@ -3,7 +3,6 @@ session_start();
 require_once __DIR__ . '/../dbConnection/dbConnection.php';
 include('admin_sidenav.php');
 
-
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -124,7 +123,7 @@ include('admin_sidenav.php');
 <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" media="screen">
 <link rel="stylesheet" type="text/css" href="../css/DT_bootstrap11.css">
 
-</head>
+
 
 
 <script type="text/javascript" charset="utf-8" language="javascript" src="../js/jquery.dataTables.js"></script>
@@ -162,7 +161,7 @@ date_default_timezone_set("Asia/Calcutta");
                     <div class="row ">
                         <div class="col-md-2">
                             <label for="validationDefault01" class="form-label">GEM NO:</label>
-                            <input type="text" class="form-control" name="GEM_NO" id="GEM_NO" placeholder="GEM NO" required="required">
+                            <input type="text" class="form-control" name="GEM_NO" id="GEM_NO" placeholder="GEM NO" placeholder="GEM NO" minlength="16" maxlength="21" required="required" value="GEMC-5116877">
                         </div>
                         <div class="col-md-2">
                             <label for="validationDefault01" class="form-label">GEM Date:</label>
@@ -188,6 +187,13 @@ date_default_timezone_set("Asia/Calcutta");
                         <div class="col-md-2">
                             <label for="validationDefault01" class="form-label"> Serial Number :</label>
                             <input type="text" class="form-control" name="Serial_Number" id="Serial_Number" placeholder="Serial Number" required="required">
+
+
+                           
+                            <div id="Serial_Number_check"></div>
+
+
+
                         </div>
                         <div class="col-md-2">
                             <label for="validationDefault01" class="form-label">Model No.:</label>
@@ -196,10 +202,7 @@ date_default_timezone_set("Asia/Calcutta");
                     </div>
                     <br>
                     <div class="row">
-                        <!-- <div class="col-md-2">
-                              <label for="validationDefault02" class="form-label">Delevary Date:</label>
-                              <input type="date" class="form-control" id="Delevary_Date" name="Delevary_Date" value="">
-                                   </div> -->
+
 
                         <div class="col-md-2">
                             <label for="validationDefault02" class="form-label">Problem:</label>
@@ -216,10 +219,7 @@ date_default_timezone_set("Asia/Calcutta");
                             </div>
                             <div id="no" style="display: none">
                                 <textarea class="form-control" id="Problem" name="Problem" placeholder="Problem"></textarea>
-                                <!-- <div class="row">
-                                <input type="checkbox" id="Defunct" name="Defunct" value="1">
-                                <label for="vehicle1"> Defunct</label>
-                            </div> -->
+
                             </div>
                         </div>
 
@@ -253,10 +253,7 @@ date_default_timezone_set("Asia/Calcutta");
 
                             </div>
                         </div>
-                        <!-- <div class="col-md-2">
-                              <label for="validationDefault02" class="form-label">Delivery DATE:</label>
-                              <input type="date" class="form-control" id="validationDefault02" value="Doe" required>
-                                   </div> -->
+
                     </div>
 
 
@@ -282,12 +279,12 @@ date_default_timezone_set("Asia/Calcutta");
         <br>
         <div class="sales-boxes">
             <div class="recent-sales box" style="width: 99%;">
-                <div class="title">Display STOCK</div>
+                <div class="title">STOCK ALL UPS'S</div>
 
                 <div class="table-responsive box">
 
 
-                    <form method="post" action="">
+                    <!-- <form method="post" action=""> -->
                         <table cellpadding="0" cellspacing="0" border="0" class="table table-condensed" id="example">
 
                             <thead>
@@ -300,7 +297,7 @@ date_default_timezone_set("Asia/Calcutta");
                                     <th>BRAND NAME::</th>
                                     <th>Serial Number:</th>
                                     <th>Model No.:</th>
-                                    <th>Delevary date</th>
+                                    <th>USER RECEIVED DATE :</th>
                                     <th>Problem:</th>
                                     <th>Warranty START DATE:</th>
                                     <th>Warranty END DATE:</th>
@@ -314,6 +311,7 @@ date_default_timezone_set("Asia/Calcutta");
                                 <?php
                                 $query = mysqli_query($con, " SELECT * FROM `ups` WHERE `ewaste`='0' ORDER BY `id` DESC") or die(mysqli_error($con));
                                 // echo 1;die;
+                                $counter = 0;
                                 while ($row = mysqli_fetch_array($query)) {
                                     $id = $row['id'];
                                     $BRAND_NAME = $row['BRAND_NAME'];
@@ -323,21 +321,21 @@ date_default_timezone_set("Asia/Calcutta");
                                     <tr>
 
 
-                                        <td><?php echo $row['id'] ?></td>
+                                        <td><?php echo ++$counter ?></td>
                                         <td><?php echo $row['GEM_NO'] ?></td>
                                         <td><?php echo $row['GEM_Date'] ?></td>
                                         <td><?php echo $row['VENDOR_NAME'] ?></td>
                                         <td><?php echo $row['BRAND_NAME'] ?></td>
                                         <td><?php echo $row['Serial_Number'] ?></td>
                                         <td><?php echo $row['Model_No'] ?></td>
-                                        <td><?php echo $row['Delevary_Date'] ?></td>
+                                        <td><?php echo $row['Delivery_Date'] ?></td>
                                         <td><?php echo $row['Problem'] ?></td>
                                         <td><?php echo $row['START_DATE'] ?></td>
                                         <td><?php echo $row['END_DATE'] ?></td>
 
-                                        <td><a href="admin_UPS_AMC.php?id=<?php echo $row['id']; ?>&AMC=<?php echo $row['AMC']; ?>"><?php if ($row['AMC'] == 0) { ?><span class="glyphicon glyphicon-unchecked" style="font-size:20px; color:red;">N</span> <?php } else { ?><span class="glyphicon glyphicon-unchecked" style="font-size:20px; color:GREEN;">Y</span><?php } ?></span></a></td>
+                                        <td><a href="admin_UPS_AMC.php?id=<?php echo $row['id']; ?>&AMC=<?php echo $row['is_amc']; ?>"><?php if ($row['is_amc'] == 0) { ?><span class="glyphicon glyphicon-unchecked" style="font-size:20px; color:red;">N</span> <?php } else { ?><span class="glyphicon glyphicon-unchecked" style="font-size:20px; color:GREEN;">Y</span><?php } ?></span></a></td>
 
-                                        <td><button class="btn btn-warning" data-toggle="modal" type="button" data-target="#update_modal<?php echo $row['id'] ?>"><span class="glyphicon glyphicon-edit"></span> Edit</button></td>
+                                        <td><?php if ($row['Delivery_Date'] == '0000-00-00'){ ?><button class="btn btn-warning" data-toggle="modal" type="button" data-target="#update_modal<?php echo $row['id'] ?>" ><span class="glyphicon glyphicon-edit"></span> Edit</button> <?php }else{  ?><button class="btn btn-warning" data-toggle="modal" type="button" data-target="#update_modal<?php echo $row['id'] ?>" disabled><span class="glyphicon glyphicon-edit"></span> Edit</button><?php } ?></td>
 
                                         <td <?php if ($row['Defunct'] == 0) { ?>hidden <?php } else {
                                                                                     } ?>><a href="admin_UPS_ewaste.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-send" style="font-size:20px; color:blue;"></span></a></td>
@@ -354,7 +352,7 @@ date_default_timezone_set("Asia/Calcutta");
 
                         <!-- admin_PROJECT_modify - Copy.php -->
 
-
+                    </form>
                 </div>
 
 
@@ -373,3 +371,29 @@ date_default_timezone_set("Asia/Calcutta");
     <?php
     include('admin_footer.php');
     ?>
+</section>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $('#Serial_Number').keyup(function() {
+      const Serial_Number = $('#Serial_Number').val();
+      //alert(Serial_Number);
+      $.ajax({
+        type: 'POST',
+        url: 'admin_UPS-SLNO_check.php',
+        data: {'Serial_Number':Serial_Number},
+        success: function(data) {
+            //alert(data);
+          $('#Serial_Number_check').html(data);
+        }
+      })
+    });
+
+});
+
+ 
+
+
+</script>
