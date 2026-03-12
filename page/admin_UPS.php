@@ -26,17 +26,14 @@ include('admin_sidenav.php');
         background-color: #dddddd;
     }
 
-
-
     .pagination ul {
         display: inline-block;
-        *display: inline;
         margin-bottom: 0;
         margin-left: 0;
         -webkit-border-radius: 4px;
         -moz-border-radius: 4px;
         border-radius: 4px;
-        *zoom: 1;
+        zoom: 1;
         -webkit-box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
         -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
